@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.59])
 AC_INIT([miLogger], [4.0.0], [diana@met.no])
 AM_INIT_AUTOMAKE
 METNO_SET_VERSION_INFO
