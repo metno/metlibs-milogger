@@ -1,13 +1,10 @@
+Library miLogger - Version 3.0.0
+Simple logger.
 
-This is how you compile:
-aclocal
-autoconf
-automake -a
-./configure
-make
+Description
+===========
 
-To build backwords compatible one can do configure and make like this;
-./configure --prefix=/metno/local/ --includedir=/metno/local/include/miLogger
-make && make install
 
-The new(NEWS, AUTHORS ChangeLog README) files are there by convention from automake 1.7. Can be removed on later versions of automake. 
+Requirements
+============
+
