@@ -1,8 +1,14 @@
-SUBDIRS= include src
+# $Id: Makefile.am 2786 2009-09-23 11:39:02Z dages $
 
-ACLOCAL_AMFLAGS = -I m4
+pkgname = miLogger
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = @PACKAGE_TARNAME@.pc
+include $(top_srcdir)/metlibs.mk
 
-$(pkgconfig_DATA): config.status
+lib_LTLIBRARIES = libmiLogger.la
+
+libmiLogger_la_SOURCES = logger.cc
+libmiLogger_la_LDFLAGS = ${VERSION_INFO}
+
+pkg_includedir = ${prefix}/include/miLogger
+pkg_include_HEADERS = logger.h
+

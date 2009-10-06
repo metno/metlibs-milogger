@@ -3,8 +3,8 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: @PACKAGE_NAME@
+Name: miLogger
 Description: The miLogger Library
 Version: @VERSION@
-Libs: -L${libdir} -l@PACKAGE_NAME@
+Libs: -L${libdir} -lmiLogger
 Cflags: -I${includedir}
