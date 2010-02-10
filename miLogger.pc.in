@@ -6,5 +6,6 @@ includedir=@includedir@
 Name: miLogger
 Description: The miLogger Library
 Version: @VERSION@
+# Requires: @miLogger_pc_requires@
 Libs: -L${libdir} -lmiLogger
 Cflags: -I${includedir}
