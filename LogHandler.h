@@ -55,6 +55,10 @@
 #define COMMON_LOG log4cpp::Category
 #endif 
 
+#ifndef MI_LOG
+#define MI_LOG log4cpp::Category
+#endif
+
 namespace milogger {
 
 /** 
@@ -97,6 +101,7 @@ public:
 	 */
     void setObjectNumber( int on );
     // To init the static object
+    static LogHandler * initLogHandler(const std::string& propertiesfilename);
     static LogHandler * initLogHandler( int loglevel, const std::string & fileName);
     static LogHandler * getInstance(void)
 		{
@@ -108,6 +113,10 @@ protected:
     	 * Default constructor.
     */
     LogHandler( int loglevel, const std::string & fileName );
+    /**
+       * Default constructor.
+    */
+    LogHandler(const std::string& propertiesfilename);
 	/**
 	 * Default copy constructor. Protected so that it cannot be called directly. 
 	 */

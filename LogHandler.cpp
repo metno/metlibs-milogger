@@ -48,6 +48,7 @@
 #include <log4cpp/OstreamAppender.hh>
 #include <log4cpp/PatternLayout.hh>
 #include <log4cpp/Priority.hh>
+#include <log4cpp/PropertyConfigurator.hh>
 #include <sstream>
 #include <unistd.h>
 
@@ -84,6 +85,20 @@ LogHandler::LogHandler( int loglevel, const std::string & fileName ) :
     COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "common" );
     mainLogger.addAppender( appender );
     setLogLevel( loglevel ); // Debug Level is default
+}
+
+LogHandler::LogHandler(const std::string& propertiesfilename) :
+  objectName_(""),
+  objectNumber_( 0 ),
+  pid_( getpid() ),
+  layout_( * new PatternLayout )
+{
+
+  try {
+    log4cpp::PropertyConfigurator::configure(propertiesfilename);
+  } catch(log4cpp::ConfigureFailure& f) {
+      std::cerr << "ERROR: Configure Problem " << f.what() << std::endl;
+  }
 }
 
 LogHandler::~LogHandler()
@@ -155,16 +170,26 @@ void LogHandler::updateLayout()
     layout_.setConversionPattern( layoutPattern.str() );
 }
 
-// This must be done first in main in application...
+LogHandler * LogHandler::initLogHandler(const std::string& propertiesfilename)
+{
+  if (_loghandler == NULL) {
+    _loghandler = new LogHandler(propertiesfilename);
+  }
+  else {
+    delete _loghandler;
+    _loghandler = new LogHandler(propertiesfilename);
+  }
+  return _loghandler;
 
+}
+
+// This must be done first in main in application...
 LogHandler * LogHandler::initLogHandler( int loglevel, const std::string & fileName)
 {
-	if (_loghandler == NULL)
-	{
+	if (_loghandler == NULL) {
 		_loghandler = new LogHandler(loglevel, fileName );
 	}
-	else
-	{
+	else {
 		delete _loghandler;
 		_loghandler = new LogHandler(loglevel, fileName );
 	}
@@ -173,7 +198,7 @@ LogHandler * LogHandler::initLogHandler( int loglevel, const std::string & fileN
 
 /**
  * @}
- * 
+ *
  * @}
  */
 
