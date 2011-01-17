@@ -25,7 +25,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
     MA  02110-1301, USA
 */
-
+//#define NLOG4CPP
 
 #ifndef LOGHANDLER_CPP_
 #define LOGHANDLER_CPP_
@@ -39,7 +39,9 @@
 /** @file
  * Common class used for handling logs in WDB applications.
  */
-
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 // PROJECT INCLUDES
 //
 
@@ -52,13 +54,19 @@
 /** COMMON_LOG is used to define the access point to the logging framework
  */
 #ifndef COMMON_LOG
+#ifndef NLOG4CPP
 #define COMMON_LOG log4cpp::Category
+#else
+#define COMMON_LOG milogger::LogHandler
+#endif
 #endif 
 
 #ifndef MI_LOG
 #define MI_LOG log4cpp::Category
 #endif
 
+
+#ifndef NLOG4CPP
 namespace milogger {
 
 /** 
@@ -153,8 +161,122 @@ private:
     static LogHandler * _loghandler;
 	
 };
- 
+
 } // namespace wdb
+#else
+
+#include <iostream>
+#include <stdio.h>
+#include <string>
+
+namespace milogger {
+
+/*
+class LogHandlerStream
+{
+public:
+  void flush() { };
+  friend LogHandlerStream& operator<<(LogHandlerStream& stream, char* text);
+};
+
+LogHandlerStream& operator<<(LogHandlerStream& stream, char* text)
+{
+      //std::cout << text;
+      return stream;
+}
+*/
+
+/**
+ * NOTE:
+ * Could implement different LogHandlerStream-classes for handling different
+ * types of streams (ala log4cpp); info, waring, debug etc.
+ */
+class LogHandlerPrinter
+{
+public:
+  LogHandlerPrinter() {
+    ///_infoStream = new LogHandlerStreamInfo;
+  }
+  ~LogHandlerPrinter() {
+    ///delete _infoStream;
+  }
+  static inline std::ostream& debugStream() { return std::cout; };
+  static inline std::ostream& infoStream() { return std::cout; };
+  static inline std::ostream& warnStream() { return std::cout; };
+  static inline std::ostream& errorStream() { return std::cout; };
+
+private:
+  ///LogHandlerStreamInfo* _infoStream;
+};
+
+/**
+ * A "dummy"-logger, written to avoid log4cpp dependencies, and for this reason ONLY.
+ * This is NOT a complete replacement for log4cpp!
+ */
+class LogHandler
+{
+public:
+  /**
+   * Default constructor.
+   */
+  LogHandler( int loglevel, const std::string& fileName );
+
+  /**
+   * Default destructor
+   */
+  virtual ~LogHandler();
+  /**
+   * Set the level of logging to be used in the LogHandler. The level of
+   * logging controls the output level of the LogHandler, anything below
+   * the set level is ignored.
+   * @param[in] logLevel    The level of logging to be used.
+   */
+  void setLogLevel( int logLevel );
+  /**
+   * Dummy function.
+   */
+  void setObjectName( const std::string & on );
+  /**
+   * Dummy function.
+   */
+  void setObjectNumber( int on );
+
+  static LogHandler* initLogHandler( int loglevel, const std::string & fileName);
+  static LogHandler* initLogHandler(const std::string & propertiesfilename);
+
+  static LogHandler * getInstance(void)
+  {
+    return _loghandler;
+  }
+  static LogHandlerPrinter & getInstance(const std::string& name)
+  {
+    return *_loghandlerPrinter;
+  }
+
+private:
+  enum LOGLEVEL {
+    DEBUG, INFO, WARN, ERROR, FATAL
+  };
+
+  LOGLEVEL priority;
+
+  /**
+   * Default copy constructor. Protected so that it cannot be called directly.
+   */
+  LogHandler(const LogHandler & );
+  /**
+   * Default copy constructor. Protected so that it cannot be called directly.
+   */
+  LogHandler & operator= (const LogHandler & );
+
+  static LogHandler * _loghandler;
+  static LogHandlerPrinter * _loghandlerPrinter;
+
+};
+
+} // namespace wdb
+#endif
+ 
   
 /**
  * @}

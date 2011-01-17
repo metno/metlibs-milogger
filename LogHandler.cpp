@@ -41,19 +41,8 @@
 #endif
 // CLASS
 #include "LogHandler.h"
-// PROJECT INCLUDES
-//
-// SYSTEM INCLUDES
-#include <log4cpp/RollingFileAppender.hh>
-#include <log4cpp/OstreamAppender.hh>
-#include <log4cpp/PatternLayout.hh>
-#include <log4cpp/Priority.hh>
-#include <log4cpp/PropertyConfigurator.hh>
-#include <sstream>
-#include <unistd.h>
 
 using namespace std;
-using namespace log4cpp;
 using namespace milogger;
 
 // init the static member variable...
@@ -65,6 +54,20 @@ LogHandler * LogHandler::_loghandler = NULL;
 
 // Lifecycle
 //---------------------------------------------------------------------------
+
+#ifndef NLOG4CPP
+// PROJECT INCLUDES
+//
+// SYSTEM INCLUDES
+#include <log4cpp/RollingFileAppender.hh>
+#include <log4cpp/OstreamAppender.hh>
+#include <log4cpp/PatternLayout.hh>
+#include <log4cpp/Priority.hh>
+#include <log4cpp/PropertyConfigurator.hh>
+#include <sstream>
+#include <unistd.h>
+
+using namespace log4cpp;
 
 LogHandler::LogHandler( int loglevel, const std::string & fileName ) :
 	objectName_(""),
@@ -186,15 +189,104 @@ LogHandler * LogHandler::initLogHandler(const std::string& propertiesfilename)
 // This must be done first in main in application...
 LogHandler * LogHandler::initLogHandler( int loglevel, const std::string & fileName)
 {
-	if (_loghandler == NULL) {
-		_loghandler = new LogHandler(loglevel, fileName );
-	}
-	else {
-		delete _loghandler;
-		_loghandler = new LogHandler(loglevel, fileName );
-	}
-	return _loghandler;
+  if (_loghandler == NULL)
+  {
+    _loghandler = new LogHandler(loglevel, fileName );
+  }
+  else
+  {
+    delete _loghandler;
+    _loghandler = new LogHandler(loglevel, fileName );
+  }
+  return _loghandler;
 }
+
+
+
+
+#else
+
+LogHandlerPrinter * LogHandler::_loghandlerPrinter = NULL;
+
+// NOTE: fileName not used
+LogHandler::LogHandler( int loglevel, const string& fileName )
+{
+    setLogLevel( loglevel ); // Debug Level is default
+    _loghandlerPrinter = new LogHandlerPrinter;
+}
+
+LogHandler::~LogHandler()
+{
+  delete _loghandlerPrinter;
+}
+
+void LogHandler::setLogLevel( int logLevel )
+{
+    switch( logLevel )
+    {
+    case 1:
+        priority = DEBUG;
+        break;
+    case 2:
+        priority = INFO;
+        break;
+    case 3:
+        priority = WARN;
+        break;
+    case 4:
+        priority = ERROR;
+        break;
+    case 5:
+        priority = FATAL;
+        break;
+    default:
+        priority = DEBUG;
+        break;
+    }
+}
+
+// This must be done first in main in application...
+LogHandler* LogHandler::initLogHandler( int loglevel, const std::string & fileName)
+{
+  if (_loghandler == NULL)
+  {
+    _loghandler = new LogHandler(loglevel, fileName );
+  }
+  else
+  {
+    delete _loghandler;
+    _loghandler = new LogHandler(loglevel, fileName );
+  }
+  return _loghandler;
+}
+
+LogHandler* LogHandler::initLogHandler(const std::string & propertiesfilename)
+{
+  if (_loghandler == NULL)
+  {
+    _loghandler = new LogHandler(0, "" );
+  }
+  else
+  {
+    delete _loghandler;
+    _loghandler = new LogHandler(0, "" );
+  }
+  return _loghandler;
+}
+
+// Dummy function
+void LogHandler::setObjectName( const std::string & on )
+{
+
+}
+
+// Dummy function
+void LogHandler::setObjectNumber( int on )
+{
+
+}
+#endif
+
 
 /**
  * @}
