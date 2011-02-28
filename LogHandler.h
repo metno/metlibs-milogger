@@ -45,11 +45,13 @@
 // PROJECT INCLUDES
 //
 
+#ifndef NLOG4CPP
 // SYSTEM INCLUDES
 #include <log4cpp/Appender.hh>
 #include <log4cpp/Category.hh>
 #include <log4cpp/CategoryStream.hh>
 #include <log4cpp/PatternLayout.hh>
+#endif
 
 /** COMMON_LOG is used to define the access point to the logging framework
  */
