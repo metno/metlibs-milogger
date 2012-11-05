@@ -61,7 +61,7 @@
 #else
 #define COMMON_LOG milogger::LogHandler
 #endif
-#endif 
+#endif
 
 #ifndef MI_LOG
 #define MI_LOG log4cpp::Category
@@ -278,12 +278,12 @@ private:
 
 } // namespace wdb
 #endif
- 
-  
+
+
 /**
  * @}
- * 
+ *
  * @}
  */
-  
+
 #endif /* WDBLOGHANDLER_CPP_ */

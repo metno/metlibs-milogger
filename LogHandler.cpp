@@ -73,8 +73,8 @@ LogHandler::LogHandler( int loglevel, const std::string & fileName ) :
 	objectName_(""),
 	objectNumber_( 0 ),
 	pid_( getpid() ),
-	layout_( * new PatternLayout ) 
-{ 
+	layout_( * new PatternLayout )
+{
 	log4cpp::Appender * appender;
 	if (fileName == "") {
 		// log to stdout
@@ -85,7 +85,7 @@ LogHandler::LogHandler( int loglevel, const std::string & fileName ) :
 	}
     updateLayout();
     appender->setLayout( & layout_ );
-    COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "common" );
+    COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "" );
     mainLogger.addAppender( appender );
     setLogLevel( loglevel ); // Debug Level is default
 }
@@ -119,7 +119,7 @@ LogHandler::~LogHandler()
 
 void LogHandler::setLogLevel( int logLevel )
 {
-    COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "common" );
+    COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "" );
     Priority::PriorityLevel priority = Priority::DEBUG;
     switch( logLevel )
     {
