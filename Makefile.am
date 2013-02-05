@@ -7,7 +7,7 @@ include $(top_srcdir)/metlibs.mk
 lib_LTLIBRARIES = libmiLogger.la
 
 libmiLogger_la_SOURCES = logger.cc LogHandler.cpp
-libmiLogger_la_LDFLAGS = ${VERSION_INFO}
+libmiLogger_la_LDFLAGS = ${miLogger_VERSION_INFO}
 if ENABLE_SHARED_LIBRARY
 libmiLogger_la_LDFLAGS += ${LOG4CPP_LDFLAGS}
 endif
