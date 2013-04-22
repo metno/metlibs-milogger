@@ -6,7 +6,7 @@ include $(top_srcdir)/metlibs.mk
 
 lib_LTLIBRARIES = libmiLogger.la
 
-libmiLogger_la_SOURCES = logger.cc LogHandler.cpp
+libmiLogger_la_SOURCES = logger.cc LogHandler.cpp miLogging.cc
 libmiLogger_la_LDFLAGS = ${miLogger_VERSION_INFO}
 if ENABLE_SHARED_LIBRARY
 libmiLogger_la_LDFLAGS += ${LOG4CPP_LDFLAGS}
@@ -19,5 +19,4 @@ libmiLogger_la_LIBADD = \
         ${LOG4CPP_LIBS}
 endif
 pkg_includedir = ${includedir}/miLogger
-pkg_include_HEADERS = logger.h LogHandler.h
-
+pkg_include_HEADERS = logger.h LogHandler.h miLogging.h
