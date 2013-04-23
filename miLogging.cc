@@ -16,12 +16,12 @@ LogScope::LogScope(Category cat, const char* fun)
     : mCategory(cat)
     , mFunction(fun)
 {
-  MILOGGER_DETAIL_LOG_CLM(mCategory, INFO, "++ enter " << mFunction);
+  MILOGGER_DETAIL_LOG_CLM(mCategory, DEBUG, "++ enter " << mFunction);
 }
 
 LogScope::~LogScope()
 {
-  MILOGGER_DETAIL_LOG_CLM(mCategory, INFO, "++ leave " << mFunction);
+  MILOGGER_DETAIL_LOG_CLM(mCategory, DEBUG, "++ leave " << mFunction);
 }
 
 LogTime::LogTime(Category cat, const char* fun)
@@ -35,7 +35,7 @@ LogTime::~LogTime()
   struct timeval post;
   gettimeofday(&post, 0);
   const double s = (((double)post.tv_sec*1000000.0 + (double)post.tv_usec)-((double)pre.tv_sec*1000000.0 + (double)pre.tv_usec))/1000000.0;
-  MILOGGER_DETAIL_LOG_CLM(mCategory, INFO, "-- spent " << std::setprecision(6) << std::setw(10) << s << "s");
+  MILOGGER_DETAIL_LOG_CLM(mCategory, DEBUG, "-- spent " << std::setprecision(6) << std::setw(10) << s << "s");
 }
 
 } // namespace detail
