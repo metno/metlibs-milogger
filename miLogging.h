@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <string>
+#include <sys/time.h>
 
 // ########################################################################
 // ########## log4cpp version
