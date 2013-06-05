@@ -90,6 +90,22 @@ LogHandler::LogHandler( int loglevel, const std::string & fileName ) :
     setLogLevel( loglevel ); // Debug Level is default
 }
 
+LogHandler::LogHandler( int loglevel, std::ostream & stream ) :
+	objectName_(""),
+	objectNumber_( 0 ),
+	pid_( getpid() ),
+	layout_( * new PatternLayout )
+{
+	log4cpp::Appender * appender;
+    appender = new OstreamAppender( "TheLogger", &stream );
+
+    updateLayout();
+    appender->setLayout( & layout_ );
+    COMMON_LOG & mainLogger = COMMON_LOG::getInstance( "" );
+    mainLogger.addAppender( appender );
+    setLogLevel( loglevel ); // Debug Level is default
+}
+
 LogHandler::LogHandler(const std::string& propertiesfilename) :
   objectName_(""),
   objectNumber_( 0 ),
@@ -201,6 +217,19 @@ LogHandler * LogHandler::initLogHandler( int loglevel, const std::string & fileN
   return _loghandler;
 }
 
+LogHandler * LogHandler::initLogHandler( int loglevel, std::ostream & stream)
+{
+  if (_loghandler == NULL)
+  {
+    _loghandler = new LogHandler(loglevel, stream);
+  }
+  else
+  {
+    delete _loghandler;
+    _loghandler = new LogHandler(loglevel, stream);
+  }
+  return _loghandler;
+}
 
 
 

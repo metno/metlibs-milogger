@@ -113,6 +113,7 @@ public:
     // To init the static object
     static LogHandler * initLogHandler(const std::string& propertiesfilename);
     static LogHandler * initLogHandler( int loglevel, const std::string & fileName);
+    static LogHandler * initLogHandler( int loglevel, std::ostream & stream);
     static LogHandler * getInstance(void)
 		{
 		  return _loghandler;
@@ -123,6 +124,11 @@ protected:
     	 * Default constructor.
     */
     LogHandler( int loglevel, const std::string & fileName );
+    /**
+     * Constructor that accepts a stream object so that cerr can be used
+     * instead of cout.
+     */
+    LogHandler( int loglevel, std::ostream & stream );
     /**
        * Default constructor.
     */
