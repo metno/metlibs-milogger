@@ -2,6 +2,8 @@
 #ifndef MILOGGER_LOGGING_HH
 #define MILOGGER_LOGGING_HH 1
 
+// FIXME this way of providing logging functions might not be suitable for a shared lib
+
 #include <sstream>
 #include <string>
 #include <sys/time.h>
