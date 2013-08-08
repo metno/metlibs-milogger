@@ -89,14 +89,13 @@ namespace /* anonymous */ {
 } // anonymous namespace
 
 #define MILOGGER_DETAIL_LOG_CLM(logcategory, loglevel, logmessage)      \
-    do {                                                                \
-        using namespace ::milogger::detail;                             \
-        if (isLoggingEnabled(logcategory, Priority::loglevel)) {        \
-            std::ostringstream logmessagestream;                        \
-            logmessagestream << logmessage;                             \
-            logMessage(logcategory, Priority::loglevel, logmessagestream.str()); \
-        }                                                               \
-    } while(false)
+  do {                                                                  \
+    if (::milogger::detail::isLoggingEnabled(logcategory, ::milogger::detail::Priority::loglevel)) { \
+      std::ostringstream logmessagestream;                              \
+      logmessagestream << logmessage;                                   \
+      ::milogger::detail::logMessage(logcategory, ::milogger::detail::Priority::loglevel, logmessagestream.str()); \
+    }                                                                   \
+  } while(false)
 
 
 #define MILOGGER_DETAIL_LOG_LM(loglevel, logmessage)                    \
