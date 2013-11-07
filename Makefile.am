@@ -20,3 +20,5 @@ libmiLogger_la_LIBADD = \
 endif
 pkg_includedir = ${includedir}/miLogger
 pkg_include_HEADERS = logger.h LogHandler.h miLogging.h
+
+EXTRA_DIST += miLogging_iostream.cc miLogging_log4cpp.cc
