@@ -36,7 +36,7 @@ METNO_REQUIRE_PKG([LOG4CPP], [log4cpp])
 
 
 AC_CONFIG_FILES([
-	glText.pc
+	miLogger.pc
 	Makefile
 	src/Makefile
 ])
