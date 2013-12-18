@@ -1,24 +1,12 @@
-# $Id$
+#
+# Makefile for miLogger 
+# 
+#
 
-pkgname = miLogger
+SUBDIRS = src
 
-include $(top_srcdir)/metlibs.mk
+ACLOCAL_AMFLAGS = -I m4
 
-lib_LTLIBRARIES = libmiLogger.la
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = miLogger.pc
 
-libmiLogger_la_SOURCES = logger.cc LogHandler.cpp miLogging.cc
-libmiLogger_la_LDFLAGS = ${miLogger_VERSION_INFO}
-if ENABLE_SHARED_LIBRARY
-libmiLogger_la_LDFLAGS += ${LOG4CPP_LDFLAGS}
-endif
-
-libmiLogger_la_CPPFLAGS = $(AM_CPPFLAGS) ${LOG4CPP_CPPFLAGS}
-
-if ENABLE_SHARED_LIBRARY
-libmiLogger_la_LIBADD = \
-        ${LOG4CPP_LIBS}
-endif
-pkg_includedir = ${includedir}/miLogger
-pkg_include_HEADERS = logger.h LogHandler.h miLogging.h
-
-EXTRA_DIST += miLogging_iostream.cc miLogging_log4cpp.cc
