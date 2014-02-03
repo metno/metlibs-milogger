@@ -5,6 +5,7 @@
 AC_PREREQ(2.59)
 AC_INIT([miLogger], [5.0.0], [diana@met.no])
 AM_INIT_AUTOMAKE([foreign])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_CONFIG_SRCDIR([src/logger.h])
 AC_CONFIG_MACRO_DIR([m4])

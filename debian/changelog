@@ -1,0 +1,5 @@
+metlibs-common-milogger (5.0.0-1) unstable; urgency=low
+
+  * Split from all-in-one metlibs
+
+ -- Alexander Carl Friedrich Bürger <alexander.buerger@met.no>  Mon, 03 Feb 2014 09:18:04 +0100
