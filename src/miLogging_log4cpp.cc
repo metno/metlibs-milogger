@@ -5,7 +5,6 @@
 #include <log4cpp/OstreamAppender.hh>
 #include <log4cpp/Layout.hh>
 #include <log4cpp/PatternLayout.hh>
-#include <boost/foreach.hpp>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -37,19 +36,20 @@ log4cpp::Appender* makeConsoleAppender()
 
 void fixConsoleLoggers()
 {
-  std::vector<log4cpp::Category*>* allCat = log4cpp::Category::getCurrentCategories();
+  typedef std::vector<log4cpp::Category*> categories_t;
+  categories_t* allCat = log4cpp::Category::getCurrentCategories();
   if (not allCat)
     return;
   
-  BOOST_FOREACH(log4cpp::Category* cat, *allCat) {
-    // cat->setAdditivity(false);
-    log4cpp::AppenderSet allApp = cat->getAllAppenders();
-    BOOST_FOREACH(log4cpp::Appender* app, allApp) {
-      log4cpp::OstreamAppender* oApp = dynamic_cast<log4cpp::OstreamAppender*>(app);
+  for (categories_t::iterator itC=allCat->begin(); itC!=allCat->end(); ++itC) {
+    // (*itC)->setAdditivity(false);
+    log4cpp::AppenderSet allApp = (*itC)->getAllAppenders();
+    for (log4cpp::AppenderSet::iterator itA=allApp.begin(); itA!=allApp.end(); ++itA) {
+      log4cpp::OstreamAppender* oApp = dynamic_cast<log4cpp::OstreamAppender*>(*itA);
       if (!oApp)
         continue;
-      cat->removeAppender(oApp);
-      cat->addAppender(makeConsoleAppender());
+      (*itC)->removeAppender(oApp);
+      (*itC)->addAppender(makeConsoleAppender());
     }
   }
 }
