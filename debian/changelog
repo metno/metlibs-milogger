@@ -1,3 +1,9 @@
+metlibs-common-milogger (5.0.0-2) unstable; urgency=low
+
+  * m4/googletest.m4
+
+ -- Lisbeth Bergholt <lisbeth.bergholt@met.no>  Tue, 04 Feb 2014 15:33:54 +0100
+
 metlibs-common-milogger (5.0.0-1) unstable; urgency=low
 
   * Split from all-in-one metlibs
