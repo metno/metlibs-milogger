@@ -5,12 +5,12 @@ pkgname = miLogger
 lib_LTLIBRARIES = libmiLogger.la
 
 libmiLogger_la_SOURCES = logger.cc LogHandler.cpp miLogging.cc
-libmiLogger_la_LDFLAGS = ${VERSION_INFO}
+libmiLogger_la_LDFLAGS = -fPIC ${VERSION_INFO}
 if ENABLE_SHARED_LIBRARY
 libmiLogger_la_LDFLAGS += ${LOG4CPP_LDFLAGS}
 endif
 
-libmiLogger_la_CPPFLAGS = $(AM_CPPFLAGS) ${LOG4CPP_CPPFLAGS}
+libmiLogger_la_CPPFLAGS = -fPIC $(AM_CPPFLAGS) ${LOG4CPP_CPPFLAGS}
 
 if ENABLE_SHARED_LIBRARY
 libmiLogger_la_LIBADD = \
