@@ -12,53 +12,11 @@
 
 namespace /* anonymous*/ {
 
-class FlushingOstreamAppender : public log4cpp::OstreamAppender {
-public:
-  FlushingOstreamAppender(const std::string& name, std::ostream* stream)
-    : OstreamAppender(name, stream) { }
-  
-protected:
-  virtual void _append(const log4cpp::LoggingEvent& event)
-    { log4cpp::OstreamAppender::_append(event); if (_stream) (*_stream) << std::flush; }
-  
-};
-
-// ========================================================================
-
-log4cpp::Appender* makeConsoleAppender()
-{
-  log4cpp::Appender *a = new FlushingOstreamAppender("console", &std::cout);
-  log4cpp::PatternLayout* layout = new log4cpp::PatternLayout();
-  layout->setConversionPattern("%d %p %c: %m%n");
-  a->setLayout(layout);
-  return a;
-}
-
-void fixConsoleLoggers()
-{
-  typedef std::vector<log4cpp::Category*> categories_t;
-  categories_t* allCat = log4cpp::Category::getCurrentCategories();
-  if (not allCat)
-    return;
-  
-  for (categories_t::iterator itC=allCat->begin(); itC!=allCat->end(); ++itC) {
-    // (*itC)->setAdditivity(false);
-    log4cpp::AppenderSet allApp = (*itC)->getAllAppenders();
-    for (log4cpp::AppenderSet::iterator itA=allApp.begin(); itA!=allApp.end(); ++itA) {
-      log4cpp::OstreamAppender* oApp = dynamic_cast<log4cpp::OstreamAppender*>(*itA);
-      if (!oApp)
-        continue;
-      (*itC)->removeAppender(oApp);
-      (*itC)->addAppender(makeConsoleAppender());
-    }
-  }
-}
-
 log4cpp::Category& getCategoryL4C(const std::string& name)
 {
   if (name.empty())
     return log4cpp::Category::getRoot();
-  else 
+  else
     return log4cpp::Category::getInstance(name);
 }
 
@@ -86,10 +44,12 @@ LoggingConfig::LoggingConfig(const std::string& l4c_p)
   struct stat sb;
   if (stat(l4c_p.c_str(), &sb) == 0) {
     log4cpp::PropertyConfigurator::configure(l4c_p);
-    fixConsoleLoggers();
   } else {
-    log4cpp::Appender *a = makeConsoleAppender();
-    
+    log4cpp::Appender *a = new log4cpp::OstreamAppender("rootAppender", &std::cout);
+    log4cpp::PatternLayout* layout = new log4cpp::PatternLayout();
+    layout->setConversionPattern("%d %p %c: %m%n");
+    a->setLayout(layout);
+
     log4cpp::Category& root = log4cpp::Category::getRoot();
     root.setPriority(log4cpp::Priority::WARN);
     root.addAppender(a);
@@ -129,7 +89,7 @@ bool Category::isLoggingEnabled(PriorityLevel pl)
 }
 
 void Category::log(PriorityLevel pl, const std::string& message)
-{ 
+{
   p->mCategory.getStream(levelToL4C(pl)) << message;
 }
 
