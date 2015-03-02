@@ -92,6 +92,8 @@ namespace /* anonymous */ {
     MILOGGER_DETAIL_LOG_LM(INFO, logmessage)
 #define METLIBS_LOG_DEBUG(logmessage)              \
     MILOGGER_DETAIL_LOG_LM(DEBUG, logmessage)
+#define METLIBS_LOG_DEBUG_ENABLED()                                     \
+  (INTERNAL_milogger.isLoggingEnabled(::milogger::detail::DEBUG))
 
 #define MILOGGER_DETAIL_LOG_SCOPE(cls)                                  \
   ::milogger::detail::Category INTERNAL_milogger(::milogger::detail::getCategoryName(MILOGGER_CATEGORY, __func__)); \
