@@ -1,3 +1,9 @@
+metlibs-common-milogger (5.0.3-1) unstable; urgency=low
+
+  * added macro to check if debug logging is enabled
+
+ -- Lisbeth Bergholt <lisbeth.bergholt@met.no>  Mon, 09 Mar 2015 11:24:27 +0100
+
 metlibs-common-milogger (5.0.2-1) unstable; urgency=low
 
   * no flush in milogging
