@@ -32,9 +32,14 @@ AC_LANG_POP([C++])
 
 METNO_ENABLE_CONDITIONAL([SHARED_LIBRARY], [shared])
 
+AC_ARG_ENABLE([log4cpp],
+    [AS_HELP_STRING([--disable-log4cpp], [disable log4cpp])],
+    [], [enable_log4cpp=yes])
+AM_CONDITIONAL([WITH_LOG4CPP], [test x$enable_log4cpp = xyes])
 
-METNO_REQUIRE_PKG([LOG4CPP], [log4cpp])
-
+AS_IF([test x$enable_log4cpp = xyes], [
+    METNO_REQUIRE_PKG([LOG4CPP], [log4cpp])
+])
 
 AC_CONFIG_FILES([
 	miLogger.pc
