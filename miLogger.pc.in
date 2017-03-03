@@ -1,10 +1,4 @@
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-libdir=@libdir@
-includedir=@includedir@
-
 Name: miLogger
-Description: The miLogger Library
-Version: @VERSION@
-Libs: -fPIC -L${libdir} -lmiLogger @LOG4CPP_LDFLAGS@ @LOG4CPP_LIBS@
-Cflags: -I${includedir} -fPIC @LOG4CPP_CPPFLAGS@
+Description: MET Norway milogger
+Version: @MILOGGER_PVERSION_FULL@
+Requires: metlibs-milogger = @MILOGGER_PVERSION_FULL@
