@@ -1,15 +1,45 @@
 Source: metlibs-common-milogger
 Priority: optional
-Maintainer: Borge Moe <borge.moe@met.no>
-Build-Depends:  debhelper (>= 7), autotools-dev, g++, 
-  autoconf (>=2.61), automake (>= 1.10), libtool (>= 1.5),
-  liblog4cpp5-dev, pkg-config
-Standards-Version: 3.7.3
+Maintainer: MET Norway <diana@met.no>
+Build-Depends:  debhelper (>= 9),
+ cmake,
+ pkg-config,
+ liblog4cpp5-dev,
+ libboost-dev,
+ libboost-date-time-dev,
+ libboost-system-dev,
+ libgtest-dev
+Standards-Version: 3.9.2
 Section: libs
 
 Package: metlibs-milogger-dev
 Section: libdevel
 Architecture: any
-Depends: ${misc:Depends}, liblog4cpp5-dev
-Description: metlibs logging
- metlibs logging library
+Depends: libmetlibs-milogger6 (= ${binary:Version}),
+ ${shlibs:Depends},
+ ${misc:Depends}
+Recommends:
+ liblog4cpp5-dev
+Description: MET Norway milogger
+ MET Norway milogger logging library.
+ .
+ This package contains the development files.
+
+Package: libmetlibs-milogger6
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: MET Norway milogger
+ MET Norway milogger logging library.
+ .
+ This package contains the shared library.
+
+Package: libmetlibs-milogger6-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: libmetlibs-milogger6 (= ${binary:Version})
+Description: MET Norway milogger
+ MET Norway milogger logging library.
+ .
+ This package contains the shared library debug symbols.

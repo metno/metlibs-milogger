@@ -1,3 +1,11 @@
+metlibs-common-milogger (6.0.0-1) unstable; urgency=low
+
+  * reorganized code
+  * CMake build
+  * shared library
+
+ -- Alexander Bürger <alexander.buerger@met.no>  Fri, 03 Mar 2017 08:00:08 +0100
+
 metlibs-common-milogger (5.0.3-1) unstable; urgency=low
 
   * added macro to check if debug logging is enabled

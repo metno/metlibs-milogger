@@ -1,4 +1,10 @@
-/debian/metlibs-milogger-dev.debhelper.log
-/debian/metlibs-milogger-dev.substvars
+/debian/.debhelper/
+/debian/debhelper-build-stamp
+/debian/*.debhelper.log
+/debian/*.substvars
+/debian/libmetlibs-milogger*/
+/debian/libmetlibs-milogger*-dbg/
 /debian/metlibs-milogger-dev
+/debian/tmp/
 /debian/files
+/obj-x86_64-linux-gnu/
