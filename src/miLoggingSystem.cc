@@ -63,7 +63,7 @@ void System::configure(const std::string&)
 {
 }
 
-void System::addSink(const std::string& sinkoptions)
+void System::addSink(const std::string&)
 {
 }
 
