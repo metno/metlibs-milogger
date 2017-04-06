@@ -7,6 +7,8 @@ INCLUDE(MetnoGTestUtils)
 
 METNO_PVERSION_DEFINES(MILOGGER "src/miLoggerVersion.h")
 
+SET(DO_NOT_USE_STD_ATOMIC FALSE CACHE BOOL "disable use of std::atomic")
+
 PKG_CHECK_MODULES(PC_LOG4CPP
   log4cpp
 )
