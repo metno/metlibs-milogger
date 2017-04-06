@@ -34,10 +34,10 @@ public:
   SimpleSystem();
   ~SimpleSystem();
 
-  void configure(const std::string&);
-  void addSink(const std::string& sinkoptions);
-  LoggerPtr getLogger(const std::string& tag);
-  void shutdown();
+  void configure(const std::string&) override;
+  void addSink(const std::string& sinkoptions) override;
+  LoggerPtr getLogger(const std::string& tag) override;
+  void shutdown() override;
 
   void write(const std::string& formatted);
 

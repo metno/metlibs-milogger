@@ -19,7 +19,7 @@ public:
 
 class NoSystem : public ::milogger::system::System {
 public:
-  LoggerPtr getLogger(const std::string& tag);
+  LoggerPtr getLogger(const std::string& tag) override;
 
 private:
   static std::mutex sMutex;
