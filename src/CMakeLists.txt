@@ -42,6 +42,10 @@ ENDIF()
 
 ADD_LIBRARY(milogger SHARED
   ${milogger_SOURCES}
+
+  # FIXME avoid mentioning these files twice -- they have to be here for IDEs
+  miLogging.h
+  miLoggerVersion.h
 )
 
 SET_TARGET_PROPERTIES(milogger PROPERTIES
