@@ -95,7 +95,7 @@ void resetAllTags()
   std::vector<LoggerTag*> lt;
   std::swap(lt, loggerTags); // avoid long erase in unregisterTag
 
-  for (LoggerTag* lt1 : loggerTags)
+  for (LoggerTag* lt1 : lt)
     lt1->reset();
 }
 
@@ -142,8 +142,10 @@ void LoggingConfig::addSink(const std::string& sinkoptions)
 LoggingConfig::~LoggingConfig()
 {
   resetAllTags();
-  selectedSystem()->shutdown();
-  _selectedSystem = system::SystemPtr();
+  if (_selectedSystem) {
+    _selectedSystem->shutdown();
+    _selectedSystem = system::SystemPtr();
+  }
 }
 
 } // namespace milogger
