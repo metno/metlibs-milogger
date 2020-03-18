@@ -1,6 +1,9 @@
 
 METNO_FIND_GTEST()
 
+SET(THREADS_PREFER_PTHREAD_FLAG TRUE)
+FIND_PACKAGE(Threads REQUIRED)
+
 INCLUDE_DIRECTORIES(
   "${CMAKE_SOURCE_DIR}/src"
 )
@@ -13,6 +16,7 @@ ADD_EXECUTABLE(milogger_test
 
 TARGET_LINK_LIBRARIES(milogger_test
   milogger
+  Threads::Threads
   ${GTEST_LIBRARY}
 )
 
