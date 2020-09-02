@@ -12,6 +12,7 @@ LINK_DIRECTORIES(${BOOST_LIBRARY_DIRS})
 
 SET(milogger_SOURCES
   miLoggingLogger.cc
+  miLoggingMemory.cc
   miLoggingNone.cc
   miLoggingScopes.cc
   miLoggingStringRecord.cc
