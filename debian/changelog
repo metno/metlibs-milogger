@@ -1,3 +1,9 @@
+metlibs-common-milogger (6.0.4-1) unstable; urgency=low
+
+  * add memory logging
+
+ -- Alexander Bürger <alexander.buerger@met.no>  Tue, 01 Sep 2020 08:00:08 +0200
+
 metlibs-common-milogger (6.0.3-2) unstable; urgency=low
 
   * version number in shlibs
