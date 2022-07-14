@@ -1,7 +1,7 @@
 Source: metlibs-common-milogger
 Priority: optional
 Maintainer: MET Norway <diana@met.no>
-Build-Depends:  debhelper (>= 9),
+Build-Depends:  debhelper (>= 11),
  cmake (>= 3.10),
  pkg-config,
  liblog4cpp5-dev,
