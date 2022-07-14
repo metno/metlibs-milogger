@@ -4,16 +4,13 @@
 #include "miLoggingStringRecord.h"
 #include "miLoggingUtils.h"
 
+#include <atomic>
+#include <chrono>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <memory>
 #include <mutex>
-#include <boost/date_time/posix_time/posix_time.hpp>
-
-// thread info
-#include <sys/types.h>
-#include <sys/syscall.h>
-
-#include <fstream>
-#include <iostream>
 #include <thread>
 
 namespace milogger {
@@ -22,6 +19,14 @@ namespace simple {
 namespace /*anonymous*/ {
 
 void no_delete(std::ostream*) {}
+
+std::size_t get_thread_id() noexcept
+{
+  static std::atomic<std::size_t> id_counter(0);
+  thread_local std::size_t this_thread_id = id_counter;
+  id_counter += 1;
+  return this_thread_id;
+}
 
 } /*anonymous namespace*/
 
@@ -46,21 +51,14 @@ void OstreamLogger::submitRecord(RecordPtr record)
 
   std::ostringstream fmt;
 
-  { using namespace boost::posix_time;
-    ptime now = microsec_clock::universal_time();
-    fmt << to_iso_extended_string(now);
+  {
+    const auto now = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now());
+    static const auto start = now;
+    const auto diff = now - start;
+    fmt << std::setw(10) << diff.count(); // 10 digits should be enough for about 3 months
   }
 
-#if 0
-  { // only on linux
-    pid_t tid = syscall(__NR_gettid);
-    fmt << " [" << tid << "]";
-  }
-#endif
-
-#if 0
-  fmt << " {" << std::this_thread::get_id() << "}";
-#endif
+  fmt << " {" << std::setw(3) << get_thread_id() << "}";
 
   const char* sev = textFromSeverity(sr->severity());
   fmt << ' ' << sev << ' ' << tag_ << ": " << sr->text() << std::endl;
