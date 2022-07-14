@@ -21,10 +21,14 @@ SET(milogger_SOURCES
   miLoggingUtils.cc
 )
 
-METNO_HEADERS (milogger_HEADERS milogger_SOURCES ".cc" ".h")
-LIST(APPEND milogger_HEADERS
+SET(milogger_HEADERS
   miLogging.h
   miLoggerVersion.h
+
+  miLoggingLogger.h
+  miLoggingMemory.h
+  miLoggingScopes.h
+  miLoggingSystem.h
 )
 
 IF (${PC_LOG4CPP_FOUND})

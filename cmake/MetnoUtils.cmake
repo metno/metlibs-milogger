@@ -57,13 +57,3 @@ FUNCTION(METNO_PVERSION_DEFINES pack header_file)
   SET(${pack}_PVERSION "${version_MAJOR}.${version_MINOR}" PARENT_SCOPE)
   SET(${pack}_PVERSION_FULL "${version_MAJOR}.${version_MINOR}.${version_PATCH}" PARENT_SCOPE)
 ENDFUNCTION()
-
-########################################################################
-
-FUNCTION(METNO_HEADERS headers sources source_suffix header_suffix)
-  FOREACH (src ${${sources}})
-    STRING(REPLACE ${source_suffix} ${header_suffix} hdr ${src})
-    LIST(APPEND lheaders ${hdr})
-  ENDFOREACH ()
-  SET(${headers} ${lheaders} PARENT_SCOPE)
-ENDFUNCTION ()

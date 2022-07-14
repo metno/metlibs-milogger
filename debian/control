@@ -18,8 +18,6 @@ Architecture: any
 Depends: libmetlibs-milogger6 (= ${binary:Version}),
  ${shlibs:Depends},
  ${misc:Depends}
-Recommends:
- liblog4cpp5-dev
 Description: MET Norway milogger
  MET Norway milogger logging library.
  .
