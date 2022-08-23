@@ -1,13 +1,11 @@
 Source: metlibs-common-milogger
 Priority: optional
 Maintainer: MET Norway <diana@met.no>
-Build-Depends:  debhelper (>= 9),
- cmake,
+Build-Depends:  debhelper (>= 11),
+ cmake (>= 3.10),
  pkg-config,
  liblog4cpp5-dev,
  libboost-dev,
- libboost-date-time-dev,
- libboost-system-dev,
  libgtest-dev
 Standards-Version: 3.9.2
 Section: libs
@@ -18,8 +16,6 @@ Architecture: any
 Depends: libmetlibs-milogger6 (= ${binary:Version}),
  ${shlibs:Depends},
  ${misc:Depends}
-Recommends:
- liblog4cpp5-dev
 Description: MET Norway milogger
  MET Norway milogger logging library.
  .
