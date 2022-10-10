@@ -28,6 +28,7 @@ SET(milogger_HEADERS
   miLoggingLogger.h
   miLoggingMemory.h
   miLoggingScopes.h
+  miLoggingSimple.h
   miLoggingSystem.h
 )
 
